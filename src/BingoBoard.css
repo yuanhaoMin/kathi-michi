@@ -1,0 +1,28 @@
+.bingo-board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Creates 5 columns */
+    grid-gap: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .square {
+    background-color: #eee;
+    border: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+  }
+  
+  .square.error {
+    background-color: #ccc;
+  }
+  
+  .rules-button {
+    grid-column: 1 / -1; /* Makes the button span all columns */
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  

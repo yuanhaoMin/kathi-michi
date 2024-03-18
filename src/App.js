@@ -5,7 +5,6 @@ import './BingoBoard.css';
 function App() {
   return (
     <div className="App">
-      <h1>Bingo Game</h1>
       <BingoBoard />
     </div>
   );

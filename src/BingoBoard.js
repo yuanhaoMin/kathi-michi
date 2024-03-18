@@ -1,28 +1,67 @@
-import React, { useState } from 'react';
-import './BingoBoard.css'; // Make sure to create this CSS file
+import React, { useState, useEffect } from 'react';
+import './BingoBoard.css';
 
 function BingoBoard() {
-  // Initialize an array with 25 items, each item is an object with an error flag
   const [squares, setSquares] = useState(
-    new Array(25).fill().map(() => ({ error: false }))
+    new Array(25).fill().map(() => ({ clicked: false }))
   );
+  const [name, setName] = useState('');
+  const [nameEntered, setNameEntered] = useState(false);
+
+  useEffect(() => {
+    // 在组件加载时检查sessionStorage中是否存储了名字
+    const storedName = sessionStorage.getItem('bingoName');
+    if (storedName) {
+      setName(storedName);
+      setNameEntered(true);
+    }
+  }, []);
 
   const handleClick = (index) => {
-    // Toggle the error state for the clicked square
     const newSquares = squares.slice();
-    newSquares[index].error = !newSquares[index].error;
+    newSquares[index].clicked = !newSquares[index].clicked;
     setSquares(newSquares);
   };
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (name) {
+      sessionStorage.setItem('bingoName', name); // 将名字保存到sessionStorage
+      setNameEntered(true);
+    }
+  };
+
+  if (!nameEntered) {
+    return (
+      <div className="welcome-screen">
+        <h1>Welcome to Bingo!</h1>
+        <p>Please enter your name to start:</p>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+            placeholder="Your Name"
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div className="bingo-board">
       {squares.map((square, index) => (
         <div
           key={index}
-          className={`square ${square.error ? 'error' : ''}`}
+          className={`square ${square.clicked ? 'clicked' : ''}`}
           onClick={() => handleClick(index)}
         >
-          {square.error ? 'Unknown Error' : '?'}
+          {square.clicked ? '✓' : '?'}
         </div>
       ))}
       <button className="rules-button">Rules</button>

@@ -1,7 +1,7 @@
 // WelcomePage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './WelcomePage.module.css'; // Import the CSS module
+import './style/WelcomePage.css'; // Import the CSS module
 
 function WelcomePage() {
   const [name, setName] = useState('');
@@ -20,18 +20,18 @@ function WelcomePage() {
   };
 
   return (
-    <div className={styles.welcomeScreen}>
+    <div className="welcomeScreen">
       <h1>Willkommen bei Bingo!</h1>
-      <p>Um zu beginnen, bitte geben Sie Ihren Nachnamen ein:</p>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <p>Bitte geben Sie Ihren Nachnamen ein:</p>
+      <form onSubmit={handleSubmit} className="form">
         <input
           type="text"
           value={name}
           onChange={handleNameChange}
           placeholder="Nachname"
-          className={styles.input}
+          className="input"
         />
-        <button type="submit" className={styles.button}>Submit</button>
+        <button type="submit" className="button">Los</button>
       </form>
     </div>
   );

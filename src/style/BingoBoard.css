@@ -1,27 +1,21 @@
 .bingo-board {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    /* Creates 5 columns */
+    grid-template-columns: repeat(5, 1fr); /* Creates 5 columns */
     grid-gap: 10px;
     max-width: 500px;
     margin: 20px auto;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 10px;
     background: #fff;
 }
 
 .square {
-    box-sizing: border-box;
-    width: calc((500px - (10px * 4)) / 5); /* Adjust the width based on the grid-gap and number of columns */
-    height: calc((500px - (10px * 4)) / 5); /* Adjust the height similarly */
+    box-sizing: border-box; /* 确保边框和内边距包含在总宽度和总高度内 */
     background-color: #eee;
     border: 2px solid #ddd;
     padding: 20px;
     text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     user-select: none;
     cursor: pointer;
     border-radius: 5px;
@@ -30,7 +24,7 @@
 
 .square.special {
     color: gold;
-    font-size: 36px;
+    font-size: 24px;
     background-color: transparent;
     border: none;
     cursor: default;
@@ -41,10 +35,9 @@
     margin: 0; /* Remove any margin that could affect neighboring squares */
 }
 
-
 .square:hover {
     background-color: #d7ebf9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .square.clicked {
@@ -53,8 +46,7 @@
 }
 
 .rules-button {
-    /* Makes the button span all columns */
-    grid-column: 1 / -1;
+    grid-column: 1 / -1; /* Makes the button span all columns */
     padding: 10px;
     margin-top: 20px;
     cursor: pointer;

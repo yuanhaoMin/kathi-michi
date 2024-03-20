@@ -14,7 +14,7 @@ function WelcomePage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (name) {
-      sessionStorage.setItem('bingoName', name); // Store the name in sessionStorage
+      sessionStorage.setItem('userName', name); // Store the name in sessionStorage
       navigate('/bingo'); // Navigate to the BingoBoard page
     }
   };

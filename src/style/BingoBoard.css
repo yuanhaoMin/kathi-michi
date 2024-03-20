@@ -1,17 +1,19 @@
 .bingo-board {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Creates 5 columns */
+    /* Creates 5 columns */
+    grid-template-columns: repeat(5, 1fr);
     grid-gap: 10px;
     max-width: 500px;
     margin: 20px auto;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     background: #fff;
 }
 
 .square {
-    box-sizing: border-box; /* 确保边框和内边距包含在总宽度和总高度内 */
+    /* 确保边框和内边距包含在总宽度和总高度内 */
+    box-sizing: border-box;
     background-color: #eee;
     border: 2px solid #ddd;
     padding: 20px;
@@ -28,16 +30,14 @@
     background-color: transparent;
     border: none;
     cursor: default;
-    pointer-events: none;
     /* Ensure that the special square doesn't affect the grid layout */
-    display: inline-block; /* Make the star an inline element inside the flex container */
-    line-height: 1; /* Adjust line height to prevent affecting the square size */
-    margin: 0; /* Remove any margin that could affect neighboring squares */
-}
-
-.square:hover {
-    background-color: #d7ebf9;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    pointer-events: none;
+    /* Make the star an inline element inside the flex container */
+    display: inline-block;
+    /* Adjust line height to prevent affecting the square size */
+    line-height: 1;
+    /* Remove any margin that could affect neighboring squares */
+    margin: 0;
 }
 
 .square.clicked {
@@ -46,7 +46,8 @@
 }
 
 .rules-button {
-    grid-column: 1 / -1; /* Makes the button span all columns */
+    /* Makes the button span all columns */
+    grid-column: 1 / -1;
     padding: 10px;
     margin-top: 20px;
     cursor: pointer;

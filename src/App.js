@@ -1,12 +1,16 @@
 import React from 'react';
-import BingoBoard from './BingoBoard'; // Make sure the path is correct
-import './BingoBoard.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import WelcomePage from './WelcomePage';
+import BingoBoard from './BingoBoard';
 
 function App() {
   return (
-    <div className="App">
-      <BingoBoard />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="/bingo" element={<BingoBoard />} />
+      </Routes>
+    </Router>
   );
 }
 

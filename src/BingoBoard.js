@@ -1,24 +1,41 @@
+// BingoBoard.js
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import './BingoBoard.css';
+import questions from './data/Questions.js';
+import userNames from './data/Users.js';
+import Popup from './Popup.js';
+import './style/BingoBoard.css';
 
 function BingoBoard() {
-  const [squares, setSquares] = useState(
-    new Array(25).fill().map(() => ({ clicked: false }))
-  );
+  const [squares] = useState(() => {
+    const initialSquares = new Array(25).fill().map((_, index) => ({
+      clicked: false,
+      special: index === 12,
+      question: index === 12 ? null : questions[index < 12 ? index : index - 1], // Adjust for center square
+    }));
+    return initialSquares;
+  });
 
-  // Check if the name is stored in session storage
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState("");
+
   const storedName = sessionStorage.getItem('bingoName');
 
-  // If no name is found in session storage, redirect to the welcome page
   if (!storedName) {
     return <Navigate to="/" />;
   }
 
   const handleClick = (index) => {
-    const newSquares = squares.slice();
-    newSquares[index].clicked = !newSquares[index].clicked;
-    setSquares(newSquares);
+    if (squares[index].special) return;
+
+    setCurrentQuestion(squares[index].question);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = (answer) => {
+    setIsModalOpen(false);
+    console.log("Answer submitted:", answer);
+    // Here you can handle the user's answer. For simplicity, we just log it and close the modal.
   };
 
   return (
@@ -26,13 +43,15 @@ function BingoBoard() {
       {squares.map((square, index) => (
         <div
           key={index}
-          className={`square ${square.clicked ? 'clicked' : ''}`}
+          className={`square ${square.clicked ? 'clicked' : ''} ${square.special ? 'special' : ''}`}
           onClick={() => handleClick(index)}
         >
-          {square.clicked ? '✓' : '?'}
+          {square.special ? '★' : square.clicked ? '✓' : '?'}
         </div>
       ))}
       <button className="rules-button">Rules</button>
+
+      {isModalOpen && <Popup question={currentQuestion} onClose={handleModalClose} userNames={userNames}/>}
     </div>
   );
 }

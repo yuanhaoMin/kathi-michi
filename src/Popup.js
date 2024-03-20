@@ -18,8 +18,7 @@ function Popup({ question, onClose, userNames }) {
   };
 
   const handleSelectName = (name) => {
-    setInputValue(name);
-    setFilteredUserNames([]);
+    onClose(name); // This will immediately close the popup and send the name back
   };
 
   return (
@@ -27,17 +26,19 @@ function Popup({ question, onClose, userNames }) {
       <div className="modal-content">
         <span className="close" onClick={() => onClose("")}>&times;</span>
         <p>{question}</p>
-        <input type="text" value={inputValue} onChange={handleInputChange} onBlur={(e) => onClose(e.target.value)} autoFocus />
+        <input type="text" value={inputValue} onChange={handleInputChange} autoFocus />
         {filteredUserNames.length > 0 && (
-          <ul className="autocomplete-dropdown">
+          <div className="autocomplete-dropdown">
             {filteredUserNames.map((name, index) => (
-              <li key={index} onClick={() => handleSelectName(name)}>{name}</li>
+              <button key={index} onClick={() => handleSelectName(name)} className="suggestion-button">
+                {name}
+              </button>
             ))}
-          </ul>
-        )}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
-  );
-}
-
-export default Popup;
+    );
+  }
+  
+  export default Popup;

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './style/Modal.css';
 
-function Popup({ question, onClose, userNames }) {
+function Popup({ question, onClose, userNames, usedNames }) {
   const [inputValue, setInputValue] = useState("");
   const [filteredUserNames, setFilteredUserNames] = useState([]);
 
   useEffect(() => {
     if (inputValue) {
+      // Suggest names that start with the input value, regardless of whether they've been used
       setFilteredUserNames(userNames.filter(name => name.toLowerCase().startsWith(inputValue.toLowerCase())));
     } else {
       setFilteredUserNames([]);
@@ -29,16 +30,22 @@ function Popup({ question, onClose, userNames }) {
         <input type="text" value={inputValue} onChange={handleInputChange} autoFocus />
         {filteredUserNames.length > 0 && (
           <div className="autocomplete-dropdown">
-            {filteredUserNames.map((name, index) => (
-              <button key={index} onClick={() => handleSelectName(name)} className="suggestion-button">
-                {name}
-              </button>
-            ))}
-            </div>
-          )}
-        </div>
+            {filteredUserNames.map((name, index) => {
+              const isUsed = usedNames.includes(name); // Check if the name has been used
+              return (
+                <button key={index} 
+                        onClick={() => !isUsed && handleSelectName(name)} 
+                        className={`suggestion-button ${isUsed ? 'disabled-button' : ''}`} 
+                        disabled={isUsed}>
+                  {name}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
-    );
-  }
-  
-  export default Popup;
+    </div>
+  );
+}
+
+export default Popup;

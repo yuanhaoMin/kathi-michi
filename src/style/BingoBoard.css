@@ -2,12 +2,12 @@
     display: grid;
     /* Creates 5 columns */
     grid-template-columns: repeat(5, 1fr);
-    grid-gap: 10px;
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 20px;
+    grid-gap: 12px;
+    max-width: 400px;
+    margin: 12px auto;
+    padding: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    border-radius: 8px;
     background: #fff;
 }
 
@@ -16,16 +16,16 @@
     box-sizing: border-box;
     background-color: #eee;
     border: 2px solid #ddd;
-    padding: 20px;
+    padding: 16px;
     text-align: center;
     user-select: none;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .square.special {
-    color: gold;
+    color: #F4B400;
     font-size: 24px;
     background-color: transparent;
     border: none;
@@ -41,24 +41,33 @@
 }
 
 .square.clicked {
-    background-color: #aacfd0;
+    background-color: #0F9D58;
     color: #fff;
 }
 
-.rules-button {
+.submit-button {
     /* Makes the button span all columns */
     grid-column: 1 / -1;
-    padding: 10px;
-    margin-top: 20px;
+    padding: 12px;
+    margin-top: 24px;
     cursor: pointer;
-    background-color: #333;
-    color: #fff;
+    background-color: #4285F4;
+    color: white;
     border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    border-radius: 8px;
+    transition: background-color 0.3s, opacity 0.3s, transform 0.2s;
     font-size: 16px;
 }
 
-.rules-button:hover {
-    background-color: #555;
+.submit-button:hover {
+    background-color: #357ae8; /* Slightly darker shade when hovered for better UI interaction */
+    transform: scale(1.02); /* Slight increase in size to give feedback */
+}
+
+.submit-button:disabled {
+    background-color: #a0c1f8; /* Lighter and more subdued blue */
+    color: #ffffffb3; /* Slightly transparent white */
+    cursor: not-allowed; /* Indicates the button is not clickable */
+    opacity: 0.7; /* Make it look more disabled */
+    transform: none; /* Reset any transform effects */
 }

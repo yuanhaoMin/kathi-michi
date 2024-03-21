@@ -52,8 +52,8 @@
 
 input[type="text"] {
   width: calc(100% - 20px);
-  padding: 10px;
-  margin-top: 20px;
+  padding: 12px;
+  margin-top: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
@@ -66,18 +66,18 @@ input[type="text"] {
   align-items: center;
   width: 100%;
   padding: 0;
-  margin-top: 10px;
+  margin-top: 12px;
   list-style-type: none;
   overflow-y: auto; /* Enable vertical scrolling for the dropdown */
-  max-height: 200px; /* Adjust this value based on desired dropdown size */
+  max-height: 360px; /* Adjust this value based on desired dropdown size */
 }
 
 .suggestion-button {
   display: block;
   width: auto;
   min-width: 80%;
-  padding: 10px;
-  margin: 5px 0;
+  padding: 8px;
+  margin: 4px 0;
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: #f9f9f9;
@@ -88,5 +88,10 @@ input[type="text"] {
 }
 
 .suggestion-button:first-of-type {
-  margin-top: 25px;
+  margin-top: 24px;
+}
+
+.disabled-button {
+  color: #ccc;
+  cursor: not-allowed;
 }

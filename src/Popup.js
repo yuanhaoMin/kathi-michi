@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './style/Modal.css';
 
-function Popup({ question, onClose, userNames, usedNames }) {
-  const [inputValue, setInputValue] = useState("");
+function Popup({ question, currentName, onClose, userNames, usedNames }) {
+  const [inputValue, setInputValue] = useState(currentName || "");
   const [filteredUserNames, setFilteredUserNames] = useState([]);
 
   useEffect(() => {

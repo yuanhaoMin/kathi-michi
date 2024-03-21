@@ -4,7 +4,7 @@
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 12px;
     max-width: 400px;
-    margin: 12px auto;
+    margin: 18px auto;
     padding: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -16,7 +16,7 @@
     box-sizing: border-box;
     background-color: #eee;
     border: 2px solid #ddd;
-    padding: 16px;
+    padding: 12px;
     text-align: center;
     user-select: none;
     cursor: pointer;
@@ -25,7 +25,7 @@
 }
 
 .square.special {
-    color: #F4B400;
+    color: #DB4437;
     font-size: 24px;
     background-color: transparent;
     border: none;

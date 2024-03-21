@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import './style/BingoBoard.css';
+import Toast from './Toast.js';
+import Popup from './Popup.js';
 import questions from './data/Questions.js';
 import userNames from './data/Users.js';
-import Popup from './Popup.js';
-import './style/BingoBoard.css';
 
 function BingoBoard() {
   const [squares, setSquares] = useState(() => {
@@ -14,13 +15,17 @@ function BingoBoard() {
       question: index === 12 ? null : questions[index < 12 ? index : index - 1],
       name: '',
     }));
-    
+
     return storedSquares ? JSON.parse(storedSquares) : initialSquares;
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState("");
+  const [currentName, setCurrentName] = useState("");
   const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const storedName = sessionStorage.getItem('userName');
 
@@ -39,6 +44,8 @@ function BingoBoard() {
     if (squares[index].special) return;
     setCurrentQuestion(squares[index].question);
     setIsModalOpen(true);
+    // Pass the current name to the Popup component
+    setCurrentName(squares[index].name); // Add this state variable and setter if not already present
   };
 
   const handleModalClose = (answer) => {
@@ -57,6 +64,11 @@ function BingoBoard() {
   const handleSubmit = () => {
     const answers = squares.filter(square => square.clicked && !square.special).map(square => square.name);
     console.log(answers);
+    // Show toast notification upon submission
+    setToastMessage('Erfolgreich gesendet!');
+    setShowToast(true);
+    // Disable further submissions
+    setIsSubmitted(true);
   };
 
   return (
@@ -67,17 +79,18 @@ function BingoBoard() {
           className={`square ${square.clicked ? 'clicked' : ''} ${square.special ? 'special' : ''}`}
           onClick={() => handleClick(index)}
         >
-          {square.special ? '★' : square.clicked ? square.name.substring(0, 3) : '?'}
+          {square.special ? '♥' : square.clicked ? square.name.substring(0, 3) : '?'}
         </div>
       ))}
       <button
-        className={`submit-button ${isSubmitEnabled ? '' : 'disabled'}`}
+        className={`submit-button ${!isSubmitEnabled && isSubmitted? 'disabled' : ''}`}
         onClick={handleSubmit}
-        disabled={!isSubmitEnabled}
+        disabled={!isSubmitEnabled || isSubmitted}
       >
         Absenden
       </button>
-      {isModalOpen && <Popup question={currentQuestion} onClose={handleModalClose} userNames={userNames} usedNames={squares.filter(square => square.clicked).map(square => square.name)}/>}
+      {isModalOpen && <Popup question={currentQuestion} currentName={currentName} onClose={handleModalClose} userNames={userNames} usedNames={squares.filter(square => square.clicked).map(square => square.name)} />}
+      <Toast message={toastMessage} show={showToast} onClose={() => setShowToast(false)} />
     </div>
   );
 }

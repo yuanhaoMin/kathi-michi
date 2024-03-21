@@ -22,13 +22,13 @@ function WelcomePage() {
   return (
     <div className="welcomeScreen">
       <h1>Willkommen bei Bingo!</h1>
-      <p>Bitte geben Sie Ihren Nachnamen ein:</p>
+      <p>Bitte geben Sie Ihren Namen ein:</p>
       <form onSubmit={handleSubmit} className="form">
         <input
           type="text"
           value={name}
           onChange={handleNameChange}
-          placeholder="Nachname"
+          placeholder="Vorname"
           className="input"
         />
         <button type="submit" className="button">Los</button>

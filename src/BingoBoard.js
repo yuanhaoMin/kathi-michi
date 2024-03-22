@@ -61,16 +61,39 @@ function BingoBoard() {
     setIsModalOpen(false);
   };
 
-  const handleSubmit = () => {
-    const answers = squares.filter(square => square.clicked && !square.special).map(square => square.name);
-    console.log(answers);
-    // Show toast notification upon submission
-    setToastMessage('Erfolgreich gesendet!');
-    setShowToast(true);
-    // Disable further submissions
-    setIsSubmitted(true);
+  const handleSubmit = async () => {
+    const choices = squares
+      .filter(square => square.clicked && !square.special)
+      .map(square => square.name)
+      .join(', ');
+  
+    const payload = {
+      userName: storedName,
+      choices: choices
+    };
+  
+    try {
+      // Perform the POST request
+      const response = await fetch('http://localhost:8080/userChoices', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+  
+      if (response.ok) {
+        setToastMessage('Erfolgreich gesendet!');
+        setShowToast(true);
+        // Disable further submissions
+        setIsSubmitted(true);
+      } else {
+        console.error('Failed to submit choices. Status:', response.status);
+      }
+    } catch (error) {
+      console.error('Error submitting choices:', error);
+    }
   };
-
   return (
     <div className="bingo-board">
       {squares.map((square, index) => (

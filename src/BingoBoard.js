@@ -74,7 +74,7 @@ function BingoBoard() {
   
     try {
       // Perform the POST request
-      const response = await fetch('http://localhost:8080/userChoices', {
+      const response = await fetch('https://wedding-quiz.azurewebsites.net/user-choices', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
